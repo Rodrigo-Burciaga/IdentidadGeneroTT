@@ -1,2 +1,12 @@
 # IdentidadGeneroTT
-Identidad Genero TT
+Identidad de Género TT
+
+frameworks used:
+JAVA EE
+
+PRIMEFACES
+
+MATERIALIZE
+
+DB:
+ORACLE

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../templates/TemplatePrincipal.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msgUI['global.title']}"/>
+            </ui:define>
+            <ui:define name="content">
+                <h4 class="center-align title">
+                    <h:outputText value="#{msgUI['editSection.title']}" 
+                                  id="titulo" />
+                </h4>
+                <h6 class="center-align">
+                    <h:outputText value="Cuestionario de Perspectiva de Género"/>
+                </h6>
+                <h:form id="formAdd">
+                    <div class="row">
+                        <div class="col l2"></div>
+                        <div class="col l2 s12 center-align">
+                            <h:outputText value="#{msgUI['editSection.section']}"/>
+                        </div>
+                        <div class="col s12 l6">
+                            <div class="input-field col s12  black-text">
+                                <h:selectOneMenu value = " "> 
+                                    <f:selectItem itemValue = "1" 
+                                                  itemLabel = "Datos Generales" /> 
+                                    <f:selectItem itemValue = "2" 
+                                                  itemLabel = "Sección 1" /> 
+                                    <f:selectItem itemValue="3"
+                                                  itemLabel="Sección 2" />
+                                    <f:selectItem itemValue="4"
+                                                  itemLabel="Sección 3" />
+                                </h:selectOneMenu> 	
+                            </div>
+                        </div>
+                        <div class="col l2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col l2"></div>
+                        <div class="col l2"></div>
+                        <div class="col s12 l6">
+                            <div class="input-field fullwidth">
+                                <h:outputLabel for=":formAdd:name" 
+                                               value="#{msgUI['editSection.add']}"/>
+                                <p:inputText id="name"/>
+                            </div>
+                        </div>
+                        <div class="col l2 "></div>
+                    </div>
+                    <div class="row">
+                        <div class="col l3"></div>
+                        <div class="col l3 s12 center-align iconheight childrenHeight">
+                            <i class="fas fa-pencil-alt small icon"></i><br/>
+                            <h:outputText value="#{msgUI['editSection.edit']}"/>
+                        </div>
+                        <div class="col l3 s12 center-align iconheight childrenHeight">
+                             <i class="fas fa-times small icon"></i><br/>
+                             <h:outputText value="#{msgUI['global.cancel']}"/>
+                        </div>
+                        <div class="col l3"></div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
