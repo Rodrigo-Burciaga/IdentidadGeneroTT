@@ -14,7 +14,6 @@ import mx.ipn.escom.modelo.Institucion;
 public class InstitutionDTO {
 
     private Institucion entidad = new Institucion();
-    private Integer id;
 
     public InstitutionDTO() {
     }
@@ -30,14 +29,4 @@ public class InstitutionDTO {
     public void setEntidad(Institucion entidad) {
         this.entidad = entidad;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-
 }

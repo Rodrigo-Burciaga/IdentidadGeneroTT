@@ -12,9 +12,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import mx.com.ipn.escom.identidadGenero.util.GenericMB;
 import mx.com.ipn.escom.identidadGenero.util.NavigationConstants;
-import mx.com.ipn.escom.war.mb.GenericMB;
-import mx.ipn.escom.dao.GenericDAO;
 import mx.ipn.escom.dto.InstitutionDTO;
 import mx.ipn.escom.ejb.InstitucionesEJB;
 import mx.ipn.escom.modelo.Administrador;
@@ -30,9 +30,12 @@ import mx.ipn.escom.util.Respuesta;
 public class InstitutionsMB extends GenericMB implements Serializable {
 
     @EJB
-    InstitucionesEJB institucionesEJB;
-    @EJB
-    GenericDAO genericDAO;
+    private InstitucionesEJB institucionesEJB;
+    @Inject
+    private LoginMB loginMB;
+    @Inject
+    CatalogMB catalogMB;
+
     private InstitutionDTO institutionDTO = new InstitutionDTO();
 
     public InstitutionsMB() {
@@ -50,44 +53,82 @@ public class InstitutionsMB extends GenericMB implements Serializable {
 
     @Override
     public String add() {
-        //TODO: no olvidar quitar el codigo hardcodeado
-        Respuesta<Administrador> admin = genericDAO.findByID(Administrador.class, 1L);
-        institutionDTO.getEntidad().setIdadministrador(admin.getResultado());
-        Respuesta<InstitutionDTO> respuestaDTO = institucionesEJB.save(institutionDTO);
-        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Institución Agregada Correctamente"));
-        } else{
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", respuestaDTO.getMensaje()));
+        //TODO: falta verificar que el acrónimo y el nombre de la institución no exista
+        Administrador admin = loginMB.getLoginDTO().getEntidad();
+        if (admin != null) {
+            institutionDTO.getEntidad().setIdadministrador(admin);
+            Respuesta<InstitutionDTO> respuestaDTO = institucionesEJB.
+                    save(institutionDTO);
+            if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+                catalogMB.updateInstitutions();
+                addMessage("global.success", "globalMSG",
+                        FacesMessage.SEVERITY_INFO, "addInstitution.success");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", respuestaDTO.getMensaje()));
+            }
         }
-        return NavigationConstants.VIEWINSTITUTIONS;
+        return NavigationConstants.VIEWINSTITUTIONSWR;
     }
 
     @Override
     public String prepareUpdate() {
+        Respuesta<InstitutionDTO> respuestaDTO
+                = institucionesEJB.findById(institutionDTO);
+        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+            institutionDTO.setEntidad(respuestaDTO.getResultado().getEntidad());
+        }
         return NavigationConstants.EDITINSTITUTION;
     }
 
     @Override
     public String update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO: falta verificar que no se repitan acronimos ni nombres y/o direcciones
+        Respuesta<InstitutionDTO> respuestaDTO = institucionesEJB.
+                update(institutionDTO);
+        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+            catalogMB.updateInstitutions();
+            addMessage("global.success", "globalMSG",
+                    FacesMessage.SEVERITY_INFO, "editInstitition.success");
+        } else {
+            addMessage("global.error", "globalMSG",
+                    FacesMessage.SEVERITY_INFO, "editInstitution.error");
+        }
+        return NavigationConstants.DETAILINSTITUCIONWR;
     }
 
     @Override
     public String prepareDelete() {
+        Respuesta<InstitutionDTO> respuestaDTO
+                = institucionesEJB.findById(institutionDTO);
+        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+            institutionDTO.setEntidad(respuestaDTO.getResultado().getEntidad());
+        }
         return NavigationConstants.DELETEINSTITUTION;
     }
 
     @Override
     public String delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Entrando delete");
+        Respuesta<InstitutionDTO> respuestaDTO
+                = institucionesEJB.delete(institutionDTO);
+        System.out.println(respuestaDTO.getCodigo());
+        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+            addMessage("global.success", "globalMSG",
+                    FacesMessage.SEVERITY_INFO, "deleteInstitution.success");
+            catalogMB.updateInstitutions();
+        } else {
+            addMessage("global.error", "globalMSG",
+                    FacesMessage.SEVERITY_INFO, "deleteInstitution.error");
+            System.out.println(respuestaDTO.getMensaje());
+        }
+        return NavigationConstants.VIEWINSTITUTIONSWR;
     }
 
     @Override
     public String viewDetail() {
-        Respuesta<InstitutionDTO> respuestaDTO =
-                institucionesEJB.findById(institutionDTO);
+        Respuesta<InstitutionDTO> respuestaDTO
+                = institucionesEJB.findById(institutionDTO);
         if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
             institutionDTO.setEntidad(respuestaDTO.getResultado().getEntidad());
             System.out.println(institutionDTO.getEntidad().getNombre());

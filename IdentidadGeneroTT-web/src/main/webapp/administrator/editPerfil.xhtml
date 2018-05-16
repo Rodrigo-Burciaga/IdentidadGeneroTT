@@ -17,82 +17,124 @@
                     <h:outputText value="#{msgUI['editPerfil.title']}" 
                                   id="titulo" />
                 </h4>
+                <p:messages id="globalMSG"
+                            for="globalMSG"
+                            showDetail="true"/>
                 <h:form id="formAdd">
-                    <div class="row">
-                        <div class="col s12 l2 center-align">
-                            <i class="fas fa-user large grey-text"></i><br/>
-                            <span class="center-align">
-                                <p:commandLink value="#{msgUI['editPerfil.image']}"/>
-                            </span>
+                    <p:fieldset legend="#{msgUI['editPerfil.fieldsetGeneral']}">
+                        <div class="row">
+                            <div class="col s12 l2 center-align">
+                                <i class="fas fa-user large grey-text"></i><br/>
+                                <span class="center-align">
+                                    <p:commandLink value="#{msgUI['editPerfil.image']}"/>
+                                </span>
+                            </div>
+                            <div class="col s12 l10 ">
+                                <div class="row">
+                                    <div class="input-field col l4 ">
+                                        <h:outputLabel for=":formAdd:name" 
+                                                       value="#{msgUI['editPerfil.name']}"
+                                                       class="required"/>
+                                        <p:inputText id="name"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.entidad.nombre}"/>
+                                        <p:message for="name"/>
+                                    </div>
+                                    <div class="input-field col l4 ">
+                                        <h:outputLabel for=":formAdd:ap1" 
+                                                       value="#{msgUI['editPerfil.ap1']}"
+                                                       class="required"/>
+                                        <p:inputText id="ap1"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.entidad.apellido1}"/>
+                                        <p:message for="ap1"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:ap2" 
+                                                       value="#{msgUI['editPerfil.ap2']}"/>
+                                        <p:inputText id="ap2"
+                                                     value="#{loginMB.loginDTO.entidad.apellido2}"/>
+                                        <p:message for="ap2"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:noEmp" 
+                                                       value="#{msgUI['editPerfil.employee']}"
+                                                       class="required"/>
+                                        <p:inputText id="noEmp"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.entidad.numeroempleado}"/>
+                                        <p:message for="noEmp"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:phone" 
+                                                       value="#{msgUI['editPerfil.phone']}"
+                                                       class="required"/>
+                                        <p:inputText id="phone"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.entidad.telefono}"/>
+                                        <p:message for="phone"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:mail" 
+                                                       value="#{msgUI['editPerfil.mail']}"
+                                                       class="required"/>
+                                        <p:inputText id="mail"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.entidad.correoelectronico}"/>
+                                        <p:message for="mail"/>
+                                    </div>
+                                    <div class="input-field col l4 ">
+                                        <h:outputLabel for=":formAdd:user" 
+                                                       value="#{msgUI['editPerfil.user']}"
+                                                       class="required"/>
+                                        <p:inputText id="user" 
+                                                     required="true" 
+                                                     value="#{loginMB.loginDTO.entidad.usuario}"/>
+                                        <p:message for="user"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:pass" 
+                                                       value="#{msgUI['editPerfil.pass']}" 
+                                                       class="required"/>
+                                        <p:password id="pass"
+                                                    required="true"
+                                                    value="#{loginMB.loginDTO.entidad.contraseña}"/>
+                                        <p:message for="pass"/>
+                                    </div>
+                                    <div class="input-field col l4">
+                                        <h:outputLabel for=":formAdd:passR" 
+                                                       value="#{msgUI['editPerfil.repeatPass']}" 
+                                                       class="required"/>
+                                        <p:password id="passR"
+                                                     required="true"
+                                                     value="#{loginMB.loginDTO.passRepeated}"/>
+                                        <p:message for="passR"/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col s12 l10 ">
-                            <div class="row">
-                                <div class="input-field col l8">
-                                    <h:outputLabel for=":formAdd:name" 
-                                                   value="#{msgUI['editPerfil.name']}"/>
-                                    <p:inputText id="name"/>
-                                </div>
-                                <div class="input-field col l4 ">
-                                    <h:outputLabel for=":formAdd:user" 
-                                                   value="#{msgUI['editPerfil.user']}" />
-                                    <p:inputText id="user" required="true" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col l8">
-                                    <h:outputLabel for=":formAdd:addr" 
-                                                   value="#{msgUI['editPerfil.address']}"/>
-                                    <p:inputText id="addr" />
-                                </div>
-                                <div class="input-field col l4">
-                                    <h:outputLabel for=":formAdd:pass" 
-                                                   value="#{msgUI['editPerfil.pass']}" />
-                                    <p:inputText id="pass"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col l4">
-                                    <h:outputLabel for=":formAdd:phone" 
-                                                   value="#{msgUI['editPerfil.phone']}"/>
-                                    <p:inputText id="phone"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col l4">
-                                    <h:outputLabel for=":formAdd:mail" 
-                                                   value="#{msgUI['editPerfil.mail']}"/>
-                                    <p:inputText id="mail"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col l4">
-                                    <h:outputLabel for=":formAdd:employee" 
-                                                   value="#{msgUI['editPerfil.employee']}"/>
-                                    <p:inputText id="employee"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s3 l3">
-                                </div>
-                                <div class="col s12 l3  iconheight center-align childrenHeight">
-                                    <i class="fas fa-save small icon"></i><br/>
-                                    #{msgUI['global.save']}
-                                </div>
-                                <div class="col s12 l3  iconheight center-align childrenHeight">
-                                    <p:commandLink action="#{institutionsMB.back()}"
-                                                   class="black-text"
-                                                   ajax="false"
-                                                   immediate="true">
-                                        <i class="fas fa-times small icon"></i><br/>
-                                    </p:commandLink>
-                                    #{msgUI['global.cancel']}
-                                </div>
-                                <div class="col s3 l3 ">
-                                </div>
-                            </div>
+                    </p:fieldset>
+                    <div class="row">
+                        <div class="col s12 l3 offset-l3  iconheight center-align childrenHeight">
+                            <p:commandLink action="#{loginMB.update()}"
+                                           class="black-text"
+                                           ajax="false">
+                                <i class="fas fa-save small icon"></i><br/>
+                            </p:commandLink>
+                            #{msgUI['global.save']}
+                        </div>
+                        <div class="col s12 l3  iconheight center-align childrenHeight">
+                            <p:commandLink action="#{loginMB.back()}"
+                                           class="black-text"
+                                           ajax="false"
+                                           immediate="true">
+                                <i class="fas fa-times small icon"></i><br/>
+                            </p:commandLink>
+                            #{msgUI['global.cancel']}
                         </div>
                     </div>
                 </h:form>
+
             </ui:define>
         </ui:composition>
     </h:body>

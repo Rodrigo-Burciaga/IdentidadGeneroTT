@@ -6,11 +6,11 @@
 package mx.ipn.escom.dao;
 
 import java.util.List;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import mx.ipn.escom.modelo.Institucion;
 import mx.ipn.escom.util.CodigoRespuesta;
 import mx.ipn.escom.util.Respuesta;
 
@@ -19,6 +19,7 @@ import mx.ipn.escom.util.Respuesta;
  * @author andii-burciaga
  */
 @Stateless
+@LocalBean
 public class InstitutionsDAO {
 
     @PersistenceContext(unitName = "identidadPU")

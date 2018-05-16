@@ -8,8 +8,8 @@ package mx.com.ipn.escom.mb;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import mx.com.ipn.escom.identidadGenero.util.GenericMB;
 import mx.com.ipn.escom.identidadGenero.util.NavigationConstants;
-import mx.com.ipn.escom.war.mb.GenericMB;
 
 /**
  *

@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
-import mx.com.ipn.escom.war.mb.GenericMB;
+import mx.com.ipn.escom.identidadGenero.util.GenericMB;
 import mx.ipn.escom.dto.InstitutionDTO;
 import mx.ipn.escom.ejb.InstitucionesEJB;
 import mx.ipn.escom.util.CodigoRespuesta;
@@ -22,7 +22,7 @@ import mx.ipn.escom.util.Respuesta;
  */
 @Named(value = "catalogMB")
 @ApplicationScoped
-public class CatalogMB extends GenericMB{
+public class CatalogMB extends GenericMB {
 
     @EJB
     InstitucionesEJB institucionesEJB;
@@ -35,6 +35,14 @@ public class CatalogMB extends GenericMB{
     @PostConstruct
     public void init() {
         System.out.println("iniciando InstitutionsMB");
+        Respuesta<InstitutionDTO> respuestaDTO
+                = institucionesEJB.findAll();
+        if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
+            setInstituciones(respuestaDTO.getResultados());
+        }
+    }
+
+    public void updateInstitutions() {
         Respuesta<InstitutionDTO> respuestaDTO
                 = institucionesEJB.findAll();
         if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
@@ -99,9 +107,5 @@ public class CatalogMB extends GenericMB{
     public void setInstituciones(List<InstitutionDTO> instituciones) {
         this.instituciones = instituciones;
     }
-    
-    
-    
-    
 
 }

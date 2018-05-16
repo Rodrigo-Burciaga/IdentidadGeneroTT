@@ -33,6 +33,9 @@ body{
     .empty{
         font-size: 1em !important;
     }
+    .waves-effect.waves-light.btn{
+        margin-bottom: .5em;
+    }
 }
 .menuIcon{
     display: inline-block;
@@ -125,5 +128,8 @@ body .contenedor{
     font-size: 1.5em;
     display: inline-block;
     width: 100%;
+}
+.footer-modal{
+    text-align: center!important;
 }
 

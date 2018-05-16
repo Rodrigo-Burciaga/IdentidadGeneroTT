@@ -14,21 +14,23 @@
                 <h:outputText value="#{msgUI['viewInstitutions.title']}"/>
             </ui:define> 
             <ui:define name="content">
-                <h:form>
-                    <p:messages id="general"
+                <h:form id="formDetail">
+                    <p:messages id="globalMSG"
                                 showDetail="true"
-                                closable="false" />
+                                closable="false" 
+                                for="globalMSG"/>
                     <h4 class="center-align title">
                         <h:outputText value="#{msgUI['viewInstitutions.header']}" 
                                       id="titulo" />
                     </h4>
                     <h:outputText rendered="#{empty catalogMB.instituciones}"
-                                              class="center-align empty"
-                                              value="#{msgUI['global.empty']}"/>
+                                  class="center-align empty"
+                                  value="#{msgUI['global.empty']}"/>
                     <div class="row">
                         <div class="col s12 m6 l6">
+
                             <div class="input-field col s12  black-text">
-                                <h:selectOneMenu value = "#{institutionsMB.institutionDTO.id}"
+                                <h:selectOneMenu value = "#{institutionsMB.institutionDTO.entidad.id}"
                                                  rendered="#{not empty catalogMB.instituciones}"> 
                                     <f:selectItems value="#{catalogMB.instituciones}"
                                                    var="institucion"
@@ -83,15 +85,15 @@
                         <div class="col s12 m12 l12 center-align iconheight">
                             <p:commandLink action="#{institutionsMB.prepareAdd()}"
                                            class="black-text"
-                                           ajax="false">
+                                           ajax="false"
+                                           id="add">
                                 <i class="fas fa-plus-circle icon small"
                                    id="iconAdd"></i>
                             </p:commandLink>
-
-                        </div>
-                        <div class="col s12 m12 l12 center-align ">
-                            <h:outputText value="#{msgUI['viewInstitutions.add']}"
-                                          id="labelAdd"/>
+                            <p:tooltip id="toolTipAdd" 
+                                       for="add" 
+                                       value="#{msgUI['viewInstitutions.add']}" 
+                                       position="top"/>
                         </div>
                     </div> 
                 </h:form>

@@ -9,8 +9,10 @@ $(document).ready(function () {
     }
     $("label").removeClass("active");
     $('.tooltipped').tooltip({delay: 50});
+    $('.modal').modal();
 });
 
 function cerrar() {
     $('.button-collapse').sideNav('hide');
 }
+

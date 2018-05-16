@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../templates/TemplatePrincipal.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msgUI['detailPerfil.title']}"/>
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="formDetail">
+                    <h4 class="center-align title">
+                        <h:outputText value="#{msgUI['detailPerfil.title']}"
+                                      id="header"/>
+                    </h4>
+                    <p:messages id="globalMSG" 
+                                autoUpdate="true"
+                                showDetail="true"
+                                for="globalMSG"/>
+                    <div class="row">
+                        <div class="col l2 s12 center-align">
+                            <i class="fas fa-user large grey-text"></i>
+                        </div>
+                        <div class="col l10 s12 nomargin">
+                            <p:fieldset legend="#{msgUI['detailPerfil.fieldGeneral']}" 
+                                        class="table-cell">
+                                <h:dataTable value="#{loginMB.loginDTO.entidad}"
+                                             styleClass="responsive-table nomargin highlight"
+                                             var="administrador">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            #{msgUI['detailPerfil.user']}
+                                        </f:facet>
+                                        #{administrador.usuario}
+                                    </h:column>
+                                    <h:column >
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.noEmp']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{administrador.numeroempleado}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            #{msgUI['detailPerfil.name']}
+                                        </f:facet>
+                                        #{administrador.nombre}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.ap1']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{administrador.apellido1}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.ap2']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{not empty administrador.apellido2 ? administrador.apellido2 : "Sin información" }
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.mail']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{administrador.correoelectronico}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            #{msgUI['detailPerfil.phone']}
+                                        </f:facet>
+                                        #{administrador.telefono}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.dateIn']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{loginMB.loginDTO.fechaInicio}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value=" #{msgUI['detailPerfil.dateOf']}"
+                                                          escape="false"/>
+                                        </f:facet>
+                                        #{not empty administrador.fechafin ? administrador.fechaFin : "Sin información"}
+                                    </h:column>  
+                                </h:dataTable>
+                            </p:fieldset>
+                            <div class="row">
+                                <div class="col l12 s12 center-align iconheight">
+                                    <p:commandLink action="#{loginMB.prepareUpdate()}"
+                                                   styleClass="black-text"
+                                                   ajax="false"
+                                                   id="edit">
+                                        <i class="fas fa-edit small icon"></i>
+                                    </p:commandLink>
+                                    <p:tooltip id="toolTipUpdate"
+                                               for="edit"
+                                               value="#{msgUI['editPerfil.title']}"
+                                               position="top"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
