@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import mx.ipn.escom.dto.LoginDTO;
+import mx.ipn.escom.dto.QuestionaryDTO;
 import mx.ipn.escom.util.CodigoRespuesta;
 import mx.ipn.escom.util.Respuesta;
 
@@ -20,22 +20,21 @@ import mx.ipn.escom.util.Respuesta;
  */
 @Stateless
 @LocalBean
-public class LoginDAO {
+public class QuestionaryDAO {
 
     @PersistenceContext(unitName = "identidadPU")
     private EntityManager em;
-    private String queryAccess = "SELECT a FROM Administrador a where a.usuario = "
-            + ":user and a.contraseña = :pass";
 
-    public Respuesta validateAccess(LoginDTO loginDTO) {
+    private final String questionaryByName = "Select c from Cuestionario c where c.nombre ="
+            + ":name";
 
+    public Respuesta findQuestionaryByName(QuestionaryDTO questionaryDTO) {
         Respuesta respuesta = new Respuesta();
         try {
-            Query query = em.createQuery(queryAccess);
-            query.setParameter("user", loginDTO.getEntidad().getUsuario());
-            query.setParameter("pass", loginDTO.getEntidad().getContraseña());
-            Object admin = query.getSingleResult();
-            respuesta.setResultado(admin);
+            Query query = em.createQuery(questionaryByName);
+            query.setParameter("name", questionaryDTO.getNombreCuestinario());
+            Object questionary = query.getSingleResult();
+            respuesta.setResultado(questionary);
 
         } catch (Exception e) {
             respuesta.setMensaje(e.getMessage());
@@ -44,4 +43,5 @@ public class LoginDAO {
         em.flush();
         return respuesta;
     }
+
 }

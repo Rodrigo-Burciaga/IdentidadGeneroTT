@@ -31,6 +31,12 @@
             <artifactId>modelo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>mx.com.ipn.escom</groupId>
+            <artifactId>war-utileria</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

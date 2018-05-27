@@ -132,4 +132,14 @@ body .contenedor{
 .footer-modal{
     text-align: center!important;
 }
+.tableicon{
+    margin-top: 10px;
+}
+.tableicon2{
+    margin-top: 20px!important;
+}
+.hr{
+    color: #fafafa;
+    margin-top: 1.5em;
+}
 

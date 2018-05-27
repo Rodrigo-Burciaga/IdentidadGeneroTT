@@ -11,8 +11,14 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import mx.com.ipn.escom.identidadGenero.util.GenericMB;
+import mx.ipn.escom.dto.CategoriaDTO;
 import mx.ipn.escom.dto.InstitutionDTO;
+import mx.ipn.escom.dto.SectionDTO;
+import mx.ipn.escom.dto.TipoDTO;
+import mx.ipn.escom.ejb.CategoriasEJB;
 import mx.ipn.escom.ejb.InstitucionesEJB;
+import mx.ipn.escom.ejb.SectionsEJB;
+import mx.ipn.escom.ejb.TipoEJB;
 import mx.ipn.escom.util.CodigoRespuesta;
 import mx.ipn.escom.util.Respuesta;
 
@@ -26,20 +32,45 @@ public class CatalogMB extends GenericMB {
 
     @EJB
     InstitucionesEJB institucionesEJB;
+    @EJB
+    CategoriasEJB categoriasEJB;
+    @EJB
+    SectionsEJB sectionsEJB;
+    @EJB
+    TipoEJB tipoEJB;
     private List<InstitutionDTO> instituciones;
+    private List<CategoriaDTO> categorias;
+    private List<SectionDTO> secciones;
+    private List<TipoDTO> tipos;
 
     public CatalogMB() {
-
+        System.out.println("inicianto el catalgo");
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("iniciando InstitutionsMB");
         Respuesta<InstitutionDTO> respuestaDTO
                 = institucionesEJB.findAll();
         if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
             setInstituciones(respuestaDTO.getResultados());
         }
+        Respuesta<CategoriaDTO> respuestaCatDTO
+                = categoriasEJB.findAll();
+        if (respuestaCatDTO.getCodigo() == CodigoRespuesta.OK) {
+            categorias = respuestaCatDTO.getResultados();
+        }
+        Respuesta<SectionDTO> respuestaSeccionDTO
+                = sectionsEJB.findAll();
+        if (respuestaCatDTO.getCodigo() == CodigoRespuesta.OK) {
+            secciones = respuestaSeccionDTO.getResultados();
+        }
+
+        Respuesta<TipoDTO> respuestaTipoDTO
+                = tipoEJB.findAll();
+        if (respuestaTipoDTO.getCodigo() == CodigoRespuesta.OK) {
+            tipos = respuestaTipoDTO.getResultados();
+        }
+
     }
 
     public void updateInstitutions() {
@@ -107,5 +138,31 @@ public class CatalogMB extends GenericMB {
     public void setInstituciones(List<InstitutionDTO> instituciones) {
         this.instituciones = instituciones;
     }
+
+    public List<CategoriaDTO> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<CategoriaDTO> categorias) {
+        this.categorias = categorias;
+    }
+
+    public List<SectionDTO> getSecciones() {
+        return secciones;
+    }
+
+    public void setSecciones(List<SectionDTO> secciones) {
+        this.secciones = secciones;
+    }
+
+    public List<TipoDTO> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<TipoDTO> tipos) {
+        this.tipos = tipos;
+    }
+
+   
 
 }
