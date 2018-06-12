@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -48,6 +49,21 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col l6 offset-l3">
+                            <h:selectOneRadio value="#{loginMB.loginDTO.tipoUser}"
+                                              required="true"
+                                              id="tipoUser">
+                                <f:selectItem itemValue="1" 
+                                              itemLabel="Administrador" />
+                                <f:selectItem itemValue="2" 
+                                              itemLabel="Representante Institución" />
+                                <f:selectItem itemValue="3" 
+                                              itemLabel="Académico" />
+                            </h:selectOneRadio>
+                            <p:message for="tipoUser"/>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col l2 s12 offset-l4 center-align">
                             <p:commandLink ajax="false"
                                            class="waves-effect waves-light btn fullwidth"
@@ -55,9 +71,9 @@
                                 <h:outputText value="#{msgUI['login.log']}"/>   
                                 <i class="fas fa-sign-in-alt small"></i>   
                             </p:commandLink>
-                            </div>
+                        </div>
                         <div class="col l2 s12 iconheight">
-                            <p:commandLink ajax="false"
+                            <p:commandLink update=":formAdd"
                                            class="waves-effect waves-light btn fullwidth
                                            red darken-1"
                                            immediate="true"

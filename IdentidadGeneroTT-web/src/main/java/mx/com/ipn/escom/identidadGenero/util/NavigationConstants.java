@@ -15,6 +15,7 @@ public class NavigationConstants {
      * IDS For menu LeftBar for the navigation
      */
     public final static String INSTITUTIONS = "INSTITUTIONS";
+    public final static String ADMINISTRATORS = "ADMINISTRATORS";
     public final static String INDEX = "INDEX";
     public final static String LOGIN = "LOGIN";
     public final static String REDIRECT = "?faces-redirect=true";
@@ -24,6 +25,7 @@ public class NavigationConstants {
      * Navigation for institutions
      */
     public final static String ADDINSTITUTION = "addInstitution";
+    public final static String VIEWADMINISTRATORS = "/administrator/viewAdministrators" + REDIRECT;
     public final static String VIEWINSTITUTIONS = "/administrator/viewInstitutions" + REDIRECT;
     public final static String VIEWINSTITUTIONSWR = "/administrator/viewInstitutions";
     public final static String EDITINSTITUTION = "/administrator/editInstitution" + REDIRECT;
@@ -31,13 +33,15 @@ public class NavigationConstants {
     public final static String DETAILINSTITUCION = "/administrator/detailInstitution" + REDIRECT;
     public final static String DETAILINSTITUCIONWR = "/administrator/detailInstitution";
     public final static String VIEWACADEMICOS = "viewAcademicos";
-    public final static String VIEWCUESTIONARIOS = "viewCuestionarios";
+    public final static String VIEWCUESTIONARIOS = "/InstitutionRepresentative/viewQuestionaries" + REDIRECT;
+    public final static String VIEWCUESTIONARIOSWR = "/InstitutionRepresentative/viewQuestionaries";
     public final static String EDITACADEMICO = "editAcademico";
     public final static String DELETEACADEMICO = "deleteAcademico";
     public final static String ADDACADEMICO = "addAcademico";
-    public final static String ADDCUESTIONARIO = "addCuestionario";
-    public final static String EDITCUESTIONARIO = "editCuestionario";
-    public final static String DELETECUESTIONARIO = "deleteCuestionario";
+    public final static String ADDCUESTIONARIO = "/InstitutionRepresentative/addQuestionary" + REDIRECT;
+    public final static String ADDCUESTIONARIOWR = "/InstitutionRepresentative/addQuestionary";
+    public final static String EDITCUESTIONARIO = "/InstitutionRepresentative/editCuestionario" + REDIRECT;
+    public final static String DELETECUESTIONARIO = "/InstitutionRepresentative/deleteCuestionario" + REDIRECT;
     public final static String VIEWSTATISTICS = "viewStatistics";
     public final static String TOLOGIN = "/login" + REDIRECT;
     public final static String LOGINWR = "/login";
@@ -47,9 +51,11 @@ public class NavigationConstants {
     public final static String TOPERFILWR = "/administrator/detailPerfil";
     public final static String EDITPERFIL = "/administrator/editPerfil" + REDIRECT;
     public final static String EDITPERFILWR = "/administrator/editPerfil";
+    public final static String DETAILQUESTIONARY = "/InstitutionRepresentative/detailQuestionary" + REDIRECT;
 
     public enum MenuNav {
         INSTITUTIONS(NavigationConstants.VIEWINSTITUTIONS),
+        ADMINISTRATORS(NavigationConstants.VIEWADMINISTRATORS),
         M2(NavigationConstants.VIEWCUESTIONARIOS),
         M3(NavigationConstants.VIEWACADEMICOS),
         M4(NavigationConstants.VIEWSTATISTICS),
@@ -72,6 +78,8 @@ public class NavigationConstants {
         switch (caseTo) {
             case INSTITUTIONS:
                 return MenuNav.INSTITUTIONS.getNavRule();
+            case ADMINISTRATORS:
+                return MenuNav.ADMINISTRATORS.getNavRule();
             case INDEX:
                 return MenuNav.INDEX.getNavRule();
             case LOGIN:

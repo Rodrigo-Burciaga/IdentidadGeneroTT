@@ -14,6 +14,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import mx.com.ipn.escom.identidadGenero.util.GenericMB;
+import mx.com.ipn.escom.identidadGenero.util.NavigationConstants;
 import mx.ipn.escom.dto.CategoriaDTO;
 import mx.ipn.escom.dto.OpcionRespuestaDTO;
 import mx.ipn.escom.dto.QuestionDTO;
@@ -45,6 +46,7 @@ public class QuestionariesMB extends GenericMB implements Serializable {
 
     @PostConstruct
     public void init() {
+        System.out.println("------------------------------------------------------------------------");
         questionaryDTO = new QuestionaryDTO();
         noQuestions = 1;
         List<CategoriaDTO> categorias = catalogMB.getCategorias();
@@ -127,34 +129,45 @@ public class QuestionariesMB extends GenericMB implements Serializable {
 
     @Override
     public String add() {
-//        System.out.println("entrando Add");
-//        System.out.println("imprimiendo datos: " + questionaryDTO.getNombreCuestinario()
-//                + "\n");
-//        for (QuestionDTO questionDTO : questionaryDTO.getQuestionsDTO()) {
-//            System.out.println("PRegunta");
-//            System.out.println(questionDTO.getEntidad().getPregunta() + "\n"
-//                    + questionDTO.getIdTipo() + "\n" + questionDTO.getCategoriaSelected()
-//                    + "\n" + questionDTO.getSeccionSelected());
-//            for (OpcionRespuestaDTO opcionRespuesta : questionDTO
-//                    .getOpcionRespuestaDTO()) {
-//                System.out.println("Opcion Respuesta");
-//                System.out.println(opcionRespuesta.getEntidad().getOpcion());
-//                System.out.println(opcionRespuesta.getRatingM());
-//                System.out.println(opcionRespuesta.getRatingF());
-//
-//            }
-//        }
+        System.out.println("entrando Add");
+        System.out.println("imprimiendo datos: " + questionaryDTO.getNombreCuestinario()
+                + "\n");
+        for (QuestionDTO questionDTO : questionaryDTO.getQuestionsDTO()) {
+            System.out.println("PRegunta");
+            System.out.println(questionDTO.getEntidad().getPregunta() + "\n"
+                    + questionDTO.getIdTipo() + "\n" + questionDTO.getCategoriaSelected()
+                    + "\n" + questionDTO.getSeccionSelected());
+            for (OpcionRespuestaDTO opcionRespuesta : questionDTO
+                    .getOpcionRespuestaDTO()) {
+                System.out.println("Opcion Respuesta");
+                System.out.println(opcionRespuesta.getEntidad().getOpcion());
+                System.out.println(opcionRespuesta.getRatingM());
+                System.out.println(opcionRespuesta.getRatingF());
+
+            }
+        }
         Respuesta<QuestionaryDTO> respuesta
                 = questionariesEJB.addQuestionary(questionaryDTO);
         if (respuesta.getCodigo() == CodigoRespuesta.OK) {
             questionaryDTO = new QuestionaryDTO();
             addMessage("global.success", "globalMSG", FacesMessage.SEVERITY_INFO,
                     "addQuestionary.success");
+            catalogMB.updateQuestionaries();
+            catalogMB.updateSections();
+            catalogMB.updateCategories();
+            return NavigationConstants.VIEWCUESTIONARIOSWR;
         } else {
-            addMessage("global.error", "globalMSG", FacesMessage.SEVERITY_ERROR,
-                    respuesta.getMensaje());
+            
+            if (questionaryDTO.getNumFail() != null) {
+                addMessage("global.error", "globalMSG", FacesMessage.SEVERITY_ERROR,
+                        respuesta.getMensaje(), questionaryDTO.getNumFail());
+            } else {
+                addMessage("global.error", "globalMSG", FacesMessage.SEVERITY_ERROR,
+                        respuesta.getMensaje());
+            }
+            return null;
         }
-        return null;
+
     }
 
     @Override
@@ -189,7 +202,7 @@ public class QuestionariesMB extends GenericMB implements Serializable {
 
     @Override
     public String back() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return NavigationConstants.VIEWCUESTIONARIOS;
     }
 
     @Override

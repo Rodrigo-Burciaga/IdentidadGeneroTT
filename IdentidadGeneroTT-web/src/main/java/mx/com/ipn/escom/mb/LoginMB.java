@@ -44,7 +44,7 @@ public class LoginMB extends GenericMB implements Serializable {
             loginDTO = respuestaDTO.getResultado();
             loginDTO.setLogged(true);
             HttpSession sesion = SessionUtils.getSession();
-            sesion.setAttribute("admin", loginDTO.getEntidad());
+            sesion.setAttribute("user", loginDTO.getEntidad());
             return NavigationConstants.INADMIN;
         }
         addMessage("global.error", "globalMSG",
@@ -74,7 +74,7 @@ public class LoginMB extends GenericMB implements Serializable {
 
     @Override
     public String update() {
-        
+
         //TODO: Falta verificar que no exista el nuevo usuario!!!!!!!!!!!!!!!!!!!
         Respuesta<LoginDTO> respuesta = perfilEJB.validateUpdate(loginDTO);
         if (respuesta.getCodigo() == CodigoRespuesta.OK) {

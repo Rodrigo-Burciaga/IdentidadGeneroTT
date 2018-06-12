@@ -32,13 +32,22 @@
                                    actionListener="#{loginMB.formatDate()}"
                                    value="#{msgUI['sidebar.perfil']}"
                                    id="PERFIL"
-                                   rendered="#{loginMB.loginDTO.logged}"
+                                   rendered="#{loginMB.loginDTO.logged and
+                                               loginMB.loginDTO.tipoUser == 1}"
+                                   ajax="false"
+                                   class="collection-item" />
+                    <p:commandLink action="#{leftBarMB.handleNavigation(component.id)}"
+                                   value="#{msgUI['sidebar.administradores']}"
+                                   id="ADMINISTRATORS"
+                                   rendered="#{loginMB.loginDTO.logged and
+                                               loginMB.loginDTO.tipoUser == 1}"
                                    ajax="false"
                                    class="collection-item" />
                     <p:commandLink action="#{leftBarMB.handleNavigation(component.id)}"
                                    value="#{msgUI['sidebar.instituciones']}"
                                    id="INSTITUTIONS"
-                                   rendered="#{loginMB.loginDTO.logged}"
+                                   rendered="#{loginMB.loginDTO.logged and
+                                               loginMB.loginDTO.tipoUser == 1}"
                                    ajax="false"
                                    class="collection-item" />
                 </div>

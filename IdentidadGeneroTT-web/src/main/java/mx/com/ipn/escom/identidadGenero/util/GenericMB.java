@@ -36,16 +36,21 @@ public abstract class GenericMB {
         return new FacesMessage(getMessage(key));
     }
 
-    public void addMessage(String key, String componentId) {
+    public void addMessage(String key, String componentId, Object... params) {
         FacesContext.getCurrentInstance().addMessage(componentId,
                 new FacesMessage(getMessage(key)));
     }
 
     public void addMessage(String key, String componentId,
-            FacesMessage.Severity severity, String detail) {
+            FacesMessage.Severity severity, String detail, Object... params) {
         FacesContext.getCurrentInstance().addMessage(componentId,
-                new FacesMessage(severity, getMessage(key), getMessage(detail)));
+                new FacesMessage(severity, getMessage(key),
+                        prepareMessage(getMessage(detail), params)));
 
+    }
+
+    private String prepareMessage(String message, Object... params) {
+        return MessageFormat.format(message, params);
     }
 
     public abstract String prepareAdd();

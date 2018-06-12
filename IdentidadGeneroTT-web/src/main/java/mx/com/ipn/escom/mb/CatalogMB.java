@@ -12,11 +12,13 @@ import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
 import mx.com.ipn.escom.identidadGenero.util.GenericMB;
 import mx.ipn.escom.dto.CategoriaDTO;
+import mx.ipn.escom.dto.CuestionariosDTO;
 import mx.ipn.escom.dto.InstitutionDTO;
 import mx.ipn.escom.dto.SectionDTO;
 import mx.ipn.escom.dto.TipoDTO;
 import mx.ipn.escom.ejb.CategoriasEJB;
 import mx.ipn.escom.ejb.InstitucionesEJB;
+import mx.ipn.escom.ejb.QuestionariesEJB;
 import mx.ipn.escom.ejb.SectionsEJB;
 import mx.ipn.escom.ejb.TipoEJB;
 import mx.ipn.escom.util.CodigoRespuesta;
@@ -38,10 +40,14 @@ public class CatalogMB extends GenericMB {
     SectionsEJB sectionsEJB;
     @EJB
     TipoEJB tipoEJB;
+    @EJB
+    QuestionariesEJB questionariesEJB;
+
     private List<InstitutionDTO> instituciones;
     private List<CategoriaDTO> categorias;
     private List<SectionDTO> secciones;
     private List<TipoDTO> tipos;
+    private List<CuestionariosDTO> cuestionarios;
 
     public CatalogMB() {
         System.out.println("inicianto el catalgo");
@@ -61,7 +67,7 @@ public class CatalogMB extends GenericMB {
         }
         Respuesta<SectionDTO> respuestaSeccionDTO
                 = sectionsEJB.findAll();
-        if (respuestaCatDTO.getCodigo() == CodigoRespuesta.OK) {
+        if (respuestaSeccionDTO.getCodigo() == CodigoRespuesta.OK) {
             secciones = respuestaSeccionDTO.getResultados();
         }
 
@@ -71,6 +77,11 @@ public class CatalogMB extends GenericMB {
             tipos = respuestaTipoDTO.getResultados();
         }
 
+        Respuesta<CuestionariosDTO> respuestaCuestionDTO = questionariesEJB.findAll();
+        if (respuestaCuestionDTO.getCodigo() == CodigoRespuesta.OK) {
+            cuestionarios = respuestaCuestionDTO.getResultados();
+        }
+
     }
 
     public void updateInstitutions() {
@@ -78,6 +89,30 @@ public class CatalogMB extends GenericMB {
                 = institucionesEJB.findAll();
         if (respuestaDTO.getCodigo() == CodigoRespuesta.OK) {
             setInstituciones(respuestaDTO.getResultados());
+        }
+    }
+
+    public void updateQuestionaries() {
+        Respuesta<CuestionariosDTO> respuestaCuestionDTO = questionariesEJB.findAll();
+        if (respuestaCuestionDTO.getCodigo() == CodigoRespuesta.OK) {
+            cuestionarios = respuestaCuestionDTO.getResultados();
+        }
+    }
+
+    public void updateSections() {
+        System.out.println("actualizando secciones");
+        Respuesta<SectionDTO> respuestaSeccionDTO
+                = sectionsEJB.findAll();
+        if (respuestaSeccionDTO.getCodigo() == CodigoRespuesta.OK) {
+            secciones = respuestaSeccionDTO.getResultados();
+        }
+    }
+
+    public void updateCategories() {
+        Respuesta<CategoriaDTO> respuestaCatDTO
+                = categoriasEJB.findAll();
+        if (respuestaCatDTO.getCodigo() == CodigoRespuesta.OK) {
+            categorias = respuestaCatDTO.getResultados();
         }
     }
 
@@ -163,6 +198,12 @@ public class CatalogMB extends GenericMB {
         this.tipos = tipos;
     }
 
-   
+    public List<CuestionariosDTO> getCuestionarios() {
+        return cuestionarios;
+    }
+
+    public void setCuestionarios(List<CuestionariosDTO> cuestionarios) {
+        this.cuestionarios = cuestionarios;
+    }
 
 }

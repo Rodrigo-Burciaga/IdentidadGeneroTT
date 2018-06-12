@@ -142,4 +142,16 @@ body .contenedor{
     color: #fafafa;
     margin-top: 1.5em;
 }
+span.title::after{
+    content: ": ";
+}
+.padSection{
+    padding-left: 1.3em;
+}
+.padQuestion{
+    padding-left: 2.6em;
+}
+.padOption{
+    padding-left: 3.9em;
+}
 

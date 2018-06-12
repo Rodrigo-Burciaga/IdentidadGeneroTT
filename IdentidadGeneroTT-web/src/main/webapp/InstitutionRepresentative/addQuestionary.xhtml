@@ -23,7 +23,7 @@
                     <p:messages id="globalMSG" 
                                 for="globalMSG"
                                 showDetail="true"
-                                closable="false"/>
+                                closable="false"/> 
                     <div class="row">
                         <div class="input-field col l12">
                             <h:outputLabel for=":formAdd:name" 
@@ -106,19 +106,6 @@
                                            ajax="false"/>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <h:panelGroup layout="block"
                                   id="pregunta">
                         <ui:repeat value="#{questionariesMB.questionaryDTO.questionsDTO}"
@@ -192,24 +179,14 @@
                                             <h:outputText value="#{msgUI['addQuestionary.tipoPregunta']}" />
                                         </h6>
                                     </div>
-                                        <h:selectOneRadio value = "#{question.idTipo}"
-                                                          class="col l4"> 
-                                            <f:selectItems value="#{catalogMB.tipos}"
-                                                           var="tipo"
-                                                           itemLabel="#{tipo.entidad.nombre}"
-                                                           itemValue="#{tipo.entidad.id}"/>
-                                        </h:selectOneRadio>  
+                                    <h:selectOneRadio value = "#{question.idTipo}"
+                                                      class="col l4"> 
+                                        <f:selectItems value="#{catalogMB.tipos}"
+                                                       var="tipo"
+                                                       itemLabel="#{tipo.entidad.nombre}"
+                                                       itemValue="#{tipo.entidad.id}"/>
+                                    </h:selectOneRadio>  
                                 </div>
-
-
-
-
-
-
-
-
-
-
                                 <ui:repeat value="#{question.opcionRespuestaDTO}"
                                            var="opcionRespuestaDTO">
                                     <div class="row nomargin">
@@ -236,7 +213,6 @@
                                                        actionListener="#{questionariesMB
                                                                          .removeOption(opcionRespuestaDTO, question)}"
                                                        update=":formAdd:pregunta">
-                                            <!-- -->
                                             <i class="fas fa-trash-alt icon small "></i>
                                         </p:commandLink>
                                     </div>
@@ -249,7 +225,6 @@
                                                    class="black-text"
                                                    id="delete">
                                         <i class="fas fa-trash-alt small icon"></i>
-                                        <!-- -->
                                     </p:commandLink>
                                     <p:tooltip id="toolTipAdd"
                                                for="delete"
@@ -275,15 +250,26 @@
                     <div class="row">
                         <div class="col l12 center-align tableicon2">
                             <p:commandLink class="btn waves-effect waves-light "
-                                           actionListener="#{questionariesMB.add()}"
+                                           action="#{questionariesMB.add()}"
                                            update=":formAdd:globalMSG"
                                            oncomplete="$('html, body').animate({scrollTop: 0}, 'fast');">
                                 <h:outputText value="#{msgUI['addQuestionary.save']}"/>
                                 <i class="fas fa-plus "></i>
                             </p:commandLink>
                         </div>
+                        <div class="col s12 m12 l12 center-align iconheigh tableicon2">
+                            <p:commandLink action="#{questionariesMB.back()}"
+                                           class="black-text"
+                                           ajax="false"
+                                           id="cancel">
+                                <i class="fas fa-times-circle icon small"></i>
+                            </p:commandLink>
+                            <p:tooltip value="#{msgUI['global.cancel']}"
+                                       for="cancel"
+                                       id="toolTipCancel"
+                                       position="top"/>
+                        </div>
                     </div>
-
                 </h:form>
             </ui:define>
         </ui:composition>
